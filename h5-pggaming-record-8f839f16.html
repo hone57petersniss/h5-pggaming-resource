@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pg游戏 · 产品说明与设计思路</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(145deg, #fdf1e6 0%, #fcebd9 35%, #f5dcc4 70%, #edcfb0 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      line-height: 1.6;
+      color: #3d2b1c;
+    }
+
+    .container {
+      max-width: 1024px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .hero-card {
+      background: rgba(255, 248, 240, 0.75);
+      backdrop-filter: blur(2px);
+      border-radius: 2.5rem;
+      padding: 2.8rem 2.2rem 2.2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 12px 28px -8px rgba(120, 70, 30, 0.15), 0 4px 12px rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(255, 245, 235, 0.7);
+      transition: box-shadow 0.2s;
+    }
+
+    .hero-card h1 {
+      font-size: 2.6rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #7f5539, #9c6b4a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: #634a32;
+      max-width: 680px;
+      margin: 0.5rem 0 0.2rem;
+    }
+
+    .white-card {
+      background: #ffffff;
+      border-radius: 2rem;
+      padding: 2.2rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 22px -10px rgba(100, 60, 30, 0.12), 0 2px 6px rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(255, 235, 220, 0.5);
+      transition: transform 0.15s ease;
+    }
+
+    .white-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 28px -12px rgba(120, 70, 30, 0.18);
+    }
+
+    .card-title {
+      font-size: 1.6rem;
+      font-weight: 470;
+      color: #5c3e2b;
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #edcbb3;
+      display: inline-block;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+      margin: 1.2rem 0 0.5rem;
+    }
+
+    .feature-item {
+      background: #fcf6ef;
+      border-radius: 1.5rem;
+      padding: 1.2rem 1.2rem 0.9rem;
+      border-left: 4px solid #dbb294;
+    }
+
+    .feature-item h3 {
+      font-weight: 500;
+      font-size: 1.2rem;
+      color: #7a543a;
+      margin-bottom: 0.3rem;
+    }
+
+    .feature-item p {
+      font-size: 0.95rem;
+      color: #4f3a2a;
+    }
+
+    .scenario-block {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0 0.2rem;
+    }
+
+    .scenario-tag {
+      background: #f3e5d7;
+      padding: 0.4rem 1rem;
+      border-radius: 3rem;
+      font-size: 0.9rem;
+      color: #4f3826;
+      border: 1px solid #dfc9b5;
+      white-space: nowrap;
+    }
+
+    .btn-link {
+      display: inline-block;
+      background: #dbb294;
+      color: #3d2b1c;
+      padding: 0.5rem 1.5rem;
+      border-radius: 3rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s, box-shadow 0.2s;
+      border: 1px solid #cfaa8a;
+      box-shadow: 0 2px 6px rgba(130, 70, 30, 0.06);
+    }
+
+    .btn-link:hover {
+      background: #cf9f7d;
+      box-shadow: 0 4px 12px rgba(120, 65, 25, 0.15);
+      border-color: #b68462;
+    }
+
+    .faq-item {
+      margin-bottom: 1rem;
+      padding: 0.8rem 0 0.2rem;
+      border-bottom: 1px dashed #e7d3c2;
+    }
+
+    .faq-question {
+      font-weight: 500;
+      font-size: 1.05rem;
+      color: #5c3f2b;
+      margin-bottom: 0.15rem;
+    }
+
+    .faq-answer {
+      color: #4f3a2b;
+      padding-left: 0.6rem;
+    }
+
+    .subtle-note {
+      background: #f7ede3;
+      border-radius: 1.8rem;
+      padding: 1rem 1.5rem;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #5d4431;
+      border: 1px solid #e6cfbb;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 2rem;
+      padding: 1rem 0;
+      color: #6d543f;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 700px) {
+      .hero-card {
+        padding: 2rem 1.2rem;
+      }
+      .hero-card h1 {
+        font-size: 2rem;
+      }
+      .white-card {
+        padding: 1.6rem 1.2rem;
+        border-radius: 1.5rem;
+      }
+      .grid-2col {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .feature-item {
+        padding: 1rem;
+      }
+      .scenario-block {
+        gap: 0.6rem;
+      }
+      .btn-link {
+        padding: 0.4rem 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 1rem 0.6rem;
+      }
+      .hero-card h1 {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- hero 介绍卡片 -->
+  <div class="hero-card">
+    <h1>pg游戏 · 轻量产品说明</h1>
+    <div class="hero-sub">
+      围绕交互与视觉主题构建的内容聚合型页面，面向希望快速了解核心概念的浏览者。
+    </div>
+    <p style="margin-top: 1.2rem; font-size: 1rem; color: #4f3826;">
+      本文档从产品设计的角度梳理了 <a href="https://h5-pggaming.com" style="color:#7a543a; font-weight:500; text-decoration:underline; text-underline-offset:3px;">pg游戏</a> 的构建思路、特点与适用场景，不包含运营承诺或过度引导，仅作信息参考。
+    </p>
+  </div>
+
+  <!-- 摘要 & 亮点 二合一 -->
+  <div class="white-card">
+    <div class="card-title">设计摘要</div>
+    <p style="margin-bottom: 1.2rem;">
+      一套面向现代端环境的界面方案，重点整合视觉统一性、交互节奏与内容组织逻辑。整体采用暖色系作为基调，配合柔光卡片、圆角链接控件和克制的内容层级，让信息传递更自然。背后的结构设计兼顾移动端与桌面端的阅读习惯，减少认知负担，同时保持视觉层次感。
+    </p>
+    <div class="grid-2col">
+      <div class="feature-item">
+        <h3>暖色视觉基调</h3>
+        <p>背景采用渐变暖杏色，卡片高亮且留白充足，降低长时间浏览的视觉疲劳。</p>
+      </div>
+      <div class="feature-item">
+        <h3>圆角按钮感链接</h3>
+        <p>所有可交互的链接采用圆角按钮样式，配合轻微悬停反馈，区分于普通段落文本。</p>
+      </div>
+      <div class="feature-item">
+        <h3>知识型段落衔接</h3>
+        <p>内容以产品说明逻辑展开：摘要 → 特点 → 场景 → FAQ，段落之间保持承接关系。</p>
+      </div>
+      <div class="feature-item">
+        <h3>响应式克制布局</h3>
+        <p>卡片宽度自适应，网格与间距在移动端自动折叠，保证各类设备下的可读性。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 场景与使用建议 -->
+  <div class="white-card">
+    <div class="card-title">使用建议 · 场景参考</div>
+    <p style="margin-bottom: 0.8rem;">
+      根据内容组织形式与交互风格，以下场景尤其适合采用类似设计方向：
+    </p>
+    <div class="scenario-block">
+      <span class="scenario-tag">产品功能介绍页</span>
+      <span class="scenario-tag">个人作品集/品牌卡片</span>
+      <span class="scenario-tag">轻量文档索引</span>
+      <span class="scenario-tag">知识分享入口</span>
+      <span class="scenario-tag">活动介绍短文</span>
+    </div>
+    <p style="margin-top: 1rem;">
+      建议在内容段落中嵌入 <a href="https://h5-pggaming.com" class="btn-link" style="display:inline; padding:0.2rem 0.8rem; font-size:0.9rem;">pg游戏</a> 等关键词，构建自然的信息锚点。但避免使用「点击进入」「立即访问」等激励性措辞，保持描述中立。
+    </p>
+  </div>
+
+  <!-- FAQ 摘要 -->
+  <div class="white-card">
+    <div class="card-title">FAQ 摘要 · 常见疑问</div>
+
+    <div class="faq-item">
+      <div class="faq-question">这个页面是正式产品入口吗？</div>
+      <div class="faq-answer">不，这是一份产品说明性质的内容页，用于介绍设计思路与结构特点。关于 <a href="https://h5-pggaming.com" style="color:#7a543a; text-decoration:underline; text-underline-offset:2px;">pg游戏</a> 的具体功能与最新信息请以实际站点为准。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">为什么采用暖色渐变背景？</div>
+      <div class="faq-answer">暖色调能营造温和、专注的阅读氛围，配合白色卡片和高对比度文字，减少蓝光刺激下的视觉疲劳，适合长时间浏览。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">链接样式为什么设计成圆角按钮？</div>
+      <div class="faq-answer">圆角按钮在视觉上比纯文本链接更具触感，同时保持轻量，避免生硬。悬停效果能增强交互反馈，但不干扰内容流。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">内容会频繁更新吗？</div>
+      <div class="faq-answer">此介绍页为静态设计示例，不包含动态更新机制。如需了解最新动态，建议关注主站信息。</div>
+    </div>
+
+    <!-- 可信克制的访问说明 -->
+    <div class="subtle-note">
+      <strong style="font-weight:500;">访问说明 · 可信提示</strong><br>
+      本页面为独立介绍内容，所有指向 <a href="https://h5-pggaming.com" style="color:#7a543a; text-decoration:underline; text-underline-offset:2px;">pg游戏</a> 的链接均为直接超链接，无中间跳转或参数跟踪。建议在熟悉的网络环境下浏览，并自行判断内容适切性。我们不收集任何浏览数据，也不使用第三方脚本。
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <div class="footer-note">
+    — 产品说明页 · 仅作参考 —
+  </div>
+
+</div>
+</body>
+</html>
