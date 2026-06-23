@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>九游娱乐 · 知识库入口</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #f0f6f8;
+      color: #1a2a32;
+      line-height: 1.6;
+      padding: 20px 16px 40px;
+    }
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    header {
+      margin-bottom: 32px;
+    }
+    .hero-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(145deg, #1d7a7a, #0b5b5b);
+      border-radius: 16px;
+      color: #e4f3f0;
+      font-size: 26px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      box-shadow: 0 6px 14px rgba(12, 80, 80, 0.18);
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 650;
+      letter-spacing: -0.3px;
+      color: #0a3d3d;
+      margin-bottom: 8px;
+    }
+    .subhead {
+      font-size: 16px;
+      color: #3d5f5f;
+      border-left: 4px solid #3ba6a6;
+      padding-left: 14px;
+      background: rgba(59, 166, 166, 0.06);
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* 网格卡片区 */
+    .grid-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 28px 0 32px;
+    }
+    .card {
+      background: #ffffffdd;
+      backdrop-filter: blur(2px);
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 18px 14px;
+      box-shadow: 0 4px 10px rgba(0, 30, 30, 0.04);
+      border: 1px solid #d9eaeb;
+      transition: 0.2s ease;
+    }
+    .card:hover {
+      border-color: #7dc4c4;
+      box-shadow: 0 6px 14px rgba(16, 100, 100, 0.08);
+    }
+    .card h3 {
+      font-size: 16px;
+      color: #115858;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .card p {
+      font-size: 14px;
+      color: #2b4a4a;
+      opacity: 0.78;
+      line-height: 1.5;
+    }
+    .card em {
+      font-style: normal;
+      background: #e1f1f0;
+      padding: 0 4px;
+      border-radius: 4px;
+      color: #166a6a;
+    }
+
+    .info-section {
+      background: #eaf4f4;
+      padding: 22px 18px;
+      border-radius: 24px;
+      margin: 30px 0;
+      border: 1px solid #bbd9d9;
+    }
+    .info-section h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #094d4d;
+      margin-bottom: 12px;
+      letter-spacing: 0.2px;
+    }
+    .info-section p {
+      font-size: 15px;
+      margin-bottom: 10px;
+      color: #1d3f3f;
+    }
+    .info-section p:last-child {
+      margin-bottom: 0;
+    }
+    .highlight-link {
+      background: #f4fbfb;
+      padding: 12px 16px;
+      border-radius: 18px;
+      margin: 18px 0 12px;
+      border-left: 6px solid #2e9b9b;
+      font-size: 15px;
+    }
+    .highlight-link a {
+      color: #0a6d6d;
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 2px solid rgba(20, 130, 130, 0.3);
+      transition: 0.15s;
+    }
+    .highlight-link a:hover {
+      border-bottom-color: #0a6d6d;
+      background: #daf1f0;
+    }
+
+    /* 提示区 / 收藏区 */
+    .tip-box {
+      background: #f9fefd;
+      border-radius: 20px;
+      padding: 20px;
+      margin: 24px 0;
+      border: 1px solid #c0dede;
+    }
+    .tip-box h3 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      color: #145c5c;
+      margin-bottom: 10px;
+    }
+    .tip-box ul {
+      padding-left: 20px;
+      color: #1e4f4f;
+    }
+    .tip-box li {
+      margin-bottom: 8px;
+      font-size: 14.5px;
+    }
+
+    .faq-mini {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 16px 18px;
+      margin-top: 20px;
+      border: 1px solid #cfdfe0;
+    }
+    .faq-mini details {
+      margin-bottom: 10px;
+      font-size: 14.5px;
+    }
+    .faq-mini summary {
+      font-weight: 550;
+      color: #115252;
+      cursor: pointer;
+      padding: 4px 0;
+    }
+    .faq-mini details p {
+      margin-top: 6px;
+      padding-left: 12px;
+      border-left: 3px solid #98cfcf;
+      color: #1b4343;
+    }
+
+    .footer-note {
+      margin-top: 36px;
+      text-align: center;
+      font-size: 13px;
+      color: #619191;
+      border-top: 1px solid #cfe1e1;
+      padding-top: 20px;
+    }
+
+    @media (max-width: 420px) {
+      .grid-cards {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      h1 {
+        font-size: 24px;
+      }
+      .hero-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="hero-icon">📖</div>
+    <h1>九游·知识库</h1>
+    <div class="subhead">一份轻量的资源索引 · 适合再次访问与收藏</div>
+  </header>
+
+  <!-- 网格卡片：目录感布局 -->
+  <div class="grid-cards">
+    <div class="card">
+      <h3>📌 最近动态</h3>
+      <p>平台内容保持更新，你可以在 <em>九游娱乐</em> 找到新的休闲主题与互动方式。</p>
+    </div>
+    <div class="card">
+      <h3>📂 收录方向</h3>
+      <p>涵盖资讯、工具与兴趣资料。分类虽简，但便于回头查阅。</p>
+    </div>
+    <div class="card">
+      <h3>🔁 再次访问</h3>
+      <p>如果觉得有用，把页面加入浏览器书签，下次直接打开即可。</p>
+    </div>
+    <div class="card">
+      <h3>🏷️ 持续关注</h3>
+      <p>信息会逐渐积累，偶尔回看也许会有新发现。</p>
+    </div>
+  </div>
+
+  <!-- 说明区 + 关联链接 -->
+  <div class="info-section">
+    <h2>关于这个页面</h2>
+    <p>这是一个轻量入口，用来记录和整理与 <strong>九游娱乐</strong> 相关的一些内容线索。没有复杂的层级，只有几张卡片、几段说明。</p>
+    <p>你可以把它看作一个简单的起点：如果想重新熟悉某些内容，或者想定期翻翻有什么变化，这里可以提供一个安静的坐标。</p>
+    <div class="highlight-link">
+      🔗 如果你还没有收藏过，不妨先记下：<a href="https://mobileindex-jiuyou.com">九游娱乐</a> —— 它本身也是信息汇聚的地方。
+    </div>
+    <p style="font-size: 14px; opacity: 0.7;">页面不定期微调，但链接地址保持不变。</p>
+  </div>
+
+  <!-- 提示区 -->
+  <div class="tip-box">
+    <h3>💡 一些小小的建议</h3>
+    <ul>
+      <li>把本页加入浏览器书签或手机主屏幕，下次找起来更快。</li>
+      <li>每隔一两周回来看看，内容会有补充或调整。</li>
+      <li>如果遇到感兴趣的链接，可以顺手记下来，方便之后深入。</li>
+    </ul>
+  </div>
+
+  <!-- 相关信息+FAQ摘要 -->
+  <div class="faq-mini">
+    <details>
+      <summary>这个页面会经常变化吗？</summary>
+      <p>大致保持稳定，但卡片和提示内容会随需要小幅更新。链接指向不变。</p>
+    </details>
+    <details>
+      <summary>“九游娱乐”具体指什么？</summary>
+      <p>你可以把它理解为一个持续运营的信息站，里面包含了一些休闲向、兴趣向的素材与参考。具体内容以实际页面为准。</p>
+    </details>
+    <details>
+      <summary>我可以分享这个页面吗？</summary>
+      <p>当然，它本身就是一个开放索引。如果有人感兴趣，直接分享链接即可。</p>
+    </details>
+  </div>
+
+  <div class="footer-note">
+    <p>知识库 · 简洁入口 · 保持关注</p>
+  </div>
+</div>
+</body>
+</html>
